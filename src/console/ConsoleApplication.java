@@ -69,14 +69,25 @@ public class ConsoleApplication {
                         write("Enter operation type");
                         String type = readString();
                         Operation operation = new Operation(num1,num2,type,consoleSession.getCurrentUser());
-                        Operation result = calculatorService.calculate(operation);
-                        write("Result = " + result.getResult());
+                        Optional<Operation> result = calculatorService.calculate(operation);
+                        write("Result = " + result.toString());
                         continue;
                     case 2:
-                        List<Operation> allByUser = calculatorService.findAllByUser(consoleSession.getCurrentUser());
-                        for(Operation operation1: allByUser){
-                            write(operation1.toString());
-
+                        write("1 - CheckAllHistory, 2 - RemoveAllHistory,3 - FindById");
+                        switch(readInt()) {
+                            case 1:
+                                List<Operation> allByUser = calculatorService.findAllByUser(consoleSession.getCurrentUser());
+                            for (Operation operation1 : allByUser) {
+                                write(operation1.toString());
+                            }
+                            continue;
+                            case 2:
+                                calculatorService.removeAll(consoleSession.getCurrentUser());
+                                continue;
+                            case 3:
+                                write("enter id");
+                                calculatorService.findByIdOperation(consoleSession.getCurrentUser(), readInt());
+                                continue;
                         }
                         continue;
                     case 3:

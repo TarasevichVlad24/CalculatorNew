@@ -2,7 +2,8 @@ package entity;
 
 import java.util.Objects;
 
-public class Operation extends AbstractEntity{
+public class Operation {
+    private int id = 1;
     private double num1;
     private double num2;
     private double result;
@@ -57,14 +58,22 @@ public class Operation extends AbstractEntity{
         this.type = type;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
         return "Operation{" +
                 "num1=" + num1 +
                 ", num2=" + num2 +
+                ", type='" + type +
                 ", result=" + result +
-                ", type='" + type + '\'' +
+                ", id='" + getId() +'\'' +
                 '}';
     }
 }

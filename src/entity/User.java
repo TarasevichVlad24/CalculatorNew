@@ -2,7 +2,8 @@ package entity;
 
 import java.util.Objects;
 
-public class User extends AbstractEntity{
+public class User {
+    private int id = 1;
 
     private String username;
     private String password;
@@ -40,12 +41,21 @@ public class User extends AbstractEntity{
         this.name = name;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

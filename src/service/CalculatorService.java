@@ -6,37 +6,48 @@ import storage.InMemoryOperationStorage;
 import storage.InMemoryUserStorage;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CalculatorService {
     private final InMemoryOperationStorage storage = new InMemoryOperationStorage();
-    public Operation calculate(Operation operation){
+    public Optional<Operation> calculate(Operation operation){
         switch(operation.getType()) {
             case "sum":
                 operation.setResult(sum(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
-                return operation;
+                return Optional.of(operation);
             case "sub":
                 operation.setResult(sub(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
-                return operation;
+                return Optional.of(operation);
             case "mult":
                 operation.setResult(mult(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
-                return operation;
+                return Optional.of(operation);
             case "div":
                 operation.setResult(div(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
-                return operation;
+                return Optional.of(operation);
+            default:
+                System.out.println("Operation not found");
+
         }
-        return null;
+        return Optional.empty();
 
     }
-//    storage.save(operation);
-//        return operation;
+
     public List<Operation> findAllByUser(User user){
         List<Operation> allByUserId = storage.getAllByUserId(user.getId());
         return allByUserId;
 
+
+    }
+    public void removeAll(User user){
+        storage.removeAll(user.getId());
+
+    }
+    public void findByIdOperation(User user, int id){
+        storage.findById(user.getId(), id).forEach(System.out::println);
     }
     private static double sum(double a, double b){
         return a+b;
