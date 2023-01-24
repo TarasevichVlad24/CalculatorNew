@@ -1,5 +1,6 @@
 package service;
 
+import console.ConsoleWriter;
 import entity.Operation;
 import entity.User;
 import storage.InMemoryOperationStorage;
@@ -12,24 +13,23 @@ public class CalculatorService {
     private final InMemoryOperationStorage storage = new InMemoryOperationStorage();
     public Optional<Operation> calculate(Operation operation){
         switch(operation.getType()) {
-            case "sum":
+            case 1:
                 operation.setResult(sum(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
                 return Optional.of(operation);
-            case "sub":
+            case 2:
                 operation.setResult(sub(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
                 return Optional.of(operation);
-            case "mult":
+            case 3:
                 operation.setResult(mult(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
                 return Optional.of(operation);
-            case "div":
+            case 4:
                 operation.setResult(div(operation.getNum1(), operation.getNum2()));
                 storage.save(operation);
                 return Optional.of(operation);
-            default:
-                System.out.println("Operation not found");
+
 
         }
         return Optional.empty();
@@ -47,7 +47,7 @@ public class CalculatorService {
 
     }
     public void findByIdOperation(User user, int id){
-        storage.findById(user.getId(), id).forEach(System.out::println);
+        storage.findById(user.getId(),id).forEach(System.out::println);
     }
     private static double sum(double a, double b){
         return a+b;

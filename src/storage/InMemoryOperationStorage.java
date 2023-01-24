@@ -22,14 +22,14 @@ public class InMemoryOperationStorage {
     }
     public void removeAll(int id){
         List<Operation> allInfo = getAllByUserId(id);
-        operationList.removeAll(new ArrayList<>(allInfo));
+        operationList.removeAll(allInfo);
 
         }
 
     public List<Operation> findById(int id, int i){
-        List<Operation> allInnfo = getAllByUserId(id);
-        return allInnfo.stream()
-                .filter(operation -> operation.getId()==id)
+        List<Operation> allInfo = getAllByUserId(id);
+        return allInfo.stream()
+                .filter(operation -> operation.getId()==i)
                 .toList();
     }
 }
