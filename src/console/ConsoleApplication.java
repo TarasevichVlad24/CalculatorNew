@@ -7,6 +7,7 @@ import service.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import static console.ConsoleReader.*;
 
@@ -27,10 +28,20 @@ public class ConsoleApplication {
                     case 1:
                         write("Enter name");
                         String name = readString();
+                        Pattern p = Pattern.compile("^[A-Z]{1}[a-z]{1,12}$");
+                        if(!name.matches(p.pattern())){
+                            ConsoleWriter.write(name+ "is invalid name");
+                            return;
+                        }
                         write("Enter username");
                         String username = readString();
                         write("Enter password");
                         String pass = readString();
+                        Pattern pp = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$");
+                        if(!pass.matches(p.pattern())){
+                            ConsoleWriter.write(pass + " is invalid password");
+                            return;
+                        }
                         User user = new User(username, pass, name);
                         userService.create(user);
                         continue;
@@ -91,7 +102,7 @@ public class ConsoleApplication {
                                 continue;
                             case 3:
                                 write("enter id");
-                                calculatorService.findByIdOperation(consoleSession.getCurrentUser(), readInt());
+                                calculatorService.findByIdOperation( readInt());
                                 continue;
                         }
                         continue;

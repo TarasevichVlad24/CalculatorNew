@@ -46,8 +46,8 @@ public class CalculatorService {
         storage.removeAll(user.getId());
 
     }
-    public void findByIdOperation(User user, int id){
-        storage.findById(user.getId(),id).forEach(System.out::println);
+    public void findByIdOperation( int id){
+        storage.findById( id).forEach(System.out::println);
     }
     private static double sum(double a, double b){
         return a+b;

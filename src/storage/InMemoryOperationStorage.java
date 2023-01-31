@@ -26,10 +26,9 @@ public class InMemoryOperationStorage {
 
         }
 
-    public List<Operation> findById(int id, int i){
-        List<Operation> allInfo = getAllByUserId(id);
-        return allInfo.stream()
-                .filter(operation -> operation.getId()==i)
+    public List<Operation> findById(int id){
+        return operationList.stream()
+                .filter(operation -> operation.getId()==id)
                 .toList();
     }
 }
