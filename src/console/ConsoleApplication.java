@@ -24,49 +24,51 @@ public class ConsoleApplication {
                 write("Hello Guest");
                 write("1 - Registration, 2 - Autorization, 3 - Exit");
                 int i = readInt();
-                switch (i) {
-                    case 1:
-                        write("Enter name");
-                        String name = readString();
-                        Pattern p = Pattern.compile("^[A-Z]{1}[a-z]{1,12}$");
-                        if(!name.matches(p.pattern())){
-                            ConsoleWriter.write(name+ "is invalid name");
-                            return;
-                        }
-                        write("Enter username");
-                        String username = readString();
-                        write("Enter password");
-                        String pass = readString();
-                        Pattern pp = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$");
-                        if(!pass.matches(p.pattern())){
-                            ConsoleWriter.write(pass + " is invalid password");
-                            return;
-                        }
-                        User user = new User(username, pass, name);
-                        userService.create(user);
-                        continue;
-                    case 2:
-                        write("Enter username");
-                        String username1 = readString();
-                        write("Enter password");
-                        String pass1 = readString();
-                        Optional<User> byUserName = userService.findByUserName(username1);
-                        if (byUserName.isPresent()) {
-                            User user1 = byUserName.get();
-                            if (user1.getPassword().equals(pass1)) {
-                                consoleSession = new ConsoleSession(user1);
-                                continue;
-
-                            } else {
-                                write("Wrong password");
+                while(true) {
+                    switch (i) {
+                        case 1:
+                            write("Enter name");
+                            String name = readString();
+                            Pattern p = Pattern.compile("^[A-Z]{1}[a-z]{1,12}$");
+                            if (!name.matches(p.pattern())) {
+                                ConsoleWriter.write(name + " is invalid name");
                                 continue;
                             }
-                        } else {
-                            write("User not found!");
+                            write("Enter username");
+                            String username = readString();
+                            write("Enter password");
+                            String pass = readString();
+                            Pattern pp = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$");
+                            if (!pass.matches(p.pattern())) {
+                                ConsoleWriter.write(pass + " is invalid password");
+                                continue;
+                            }
+                            User user = new User(username, pass, name);
+                            userService.create(user);
                             continue;
-                        }
-                    case 3:
-                        return;
+                        case 2:
+                            write("Enter username");
+                            String username1 = readString();
+                            write("Enter password");
+                            String pass1 = readString();
+                            Optional<User> byUserName = userService.findByUserName(username1);
+                            if (byUserName.isPresent()) {
+                                User user1 = byUserName.get();
+                                if (user1.getPassword().equals(pass1)) {
+                                    consoleSession = new ConsoleSession(user1);
+                                    continue;
+
+                                } else {
+                                    write("Wrong password");
+                                    continue;
+                                }
+                            } else {
+                                write("User not found!");
+                                continue;
+                            }
+                        case 3:
+                            return;
+                    }
                 }
             } else {
                 write("Hello " + consoleSession.getCurrentUser().getName());
