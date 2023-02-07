@@ -5,29 +5,32 @@ import entity.Operation;
 import entity.User;
 import storage.InMemoryOperationStorage;
 import storage.InMemoryUserStorage;
+import storage.JDBCOperationStorage;
 
 import java.util.List;
 import java.util.Optional;
 
 public class CalculatorService {
     private final InMemoryOperationStorage storage = new InMemoryOperationStorage();
+    private final JDBCOperationStorage jdbcStorage = new JDBCOperationStorage();
+
     public Optional<Operation> calculate(Operation operation){
         switch(operation.getType()) {
-            case 1:
+            case "SUM":
                 operation.setResult(sum(operation.getNum1(), operation.getNum2()));
-                storage.save(operation);
+                jdbcStorage.save(operation);
                 return Optional.of(operation);
-            case 2:
+            case "SUB":
                 operation.setResult(sub(operation.getNum1(), operation.getNum2()));
-                storage.save(operation);
+                jdbcStorage.save(operation);
                 return Optional.of(operation);
-            case 3:
+            case "MUL":
                 operation.setResult(mult(operation.getNum1(), operation.getNum2()));
-                storage.save(operation);
+                jdbcStorage.save(operation);
                 return Optional.of(operation);
-            case 4:
+            case "DIV":
                 operation.setResult(div(operation.getNum1(), operation.getNum2()));
-                storage.save(operation);
+                jdbcStorage.save(operation);
                 return Optional.of(operation);
 
 

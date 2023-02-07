@@ -7,11 +7,18 @@ public class Operation {
     private double num1;
     private double num2;
     private double result;
-    private int type;
+    private String type;
     private User owner;
 
+    public Operation(int id, double num1, double num2, double result, String type) {
+        this.id = id;
+        this.num1 = num1;
+        this.num2 = num2;
+        this.result = result;
+        this.type = type;
+    }
 
-    public Operation(double num1, double num2, int type,User owner) {
+    public Operation(double num1, double num2, String type, User owner) {
         this.num1 = num1;
         this.num2 = num2;
         this.type = type;
@@ -50,11 +57,11 @@ public class Operation {
         this.result = result;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

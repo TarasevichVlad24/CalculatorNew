@@ -81,11 +81,11 @@ public class ConsoleApplication {
                         double num1 = readDouble();
                         write("Enter num2");
                         double num2 = readDouble();
-                        write("1- summary, " +
-                                "2 - subtract, " +
-                                "3 - multiplication, " +
-                                "4 - divined");
-                        int type = readInt();
+                        write("SUM- summary, " +
+                                "SUB - subtract, " +
+                                "MUL - multiplication, " +
+                                "DIV - divined");
+                        String type = readString();
                         Operation operation = new Operation(num1, num2, type, consoleSession.getCurrentUser());
                         Optional<Operation> result = calculatorService.calculate(operation);
                         write("Result = " + result.toString());
