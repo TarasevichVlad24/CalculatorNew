@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CalculatorService {
-    private final InMemoryOperationStorage storage = new InMemoryOperationStorage();
+
     private final JDBCOperationStorage jdbcStorage = new JDBCOperationStorage();
 
     public Optional<Operation> calculate(Operation operation){
@@ -39,19 +39,6 @@ public class CalculatorService {
 
     }
 
-    public List<Operation> findAllByUser(User user){
-        List<Operation> allByUserId = storage.getAllByUserId(user.getId());
-        return allByUserId;
-
-
-    }
-    public void removeAll(User user){
-        storage.removeAll(user.getId());
-
-    }
-    public void findByIdOperation( int id){
-        storage.findById( id).forEach(System.out::println);
-    }
     private static double sum(double a, double b){
         return a+b;
     }

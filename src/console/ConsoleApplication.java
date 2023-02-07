@@ -4,6 +4,7 @@ import entity.Operation;
 import entity.User;
 import service.CalculatorService;
 import service.UserService;
+import storage.JDBCOperationStorage;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public class ConsoleApplication {
     public static ConsoleSession consoleSession;
     private final UserService userService = new UserService();
     private final CalculatorService calculatorService = new CalculatorService();
+    private final JDBCOperationStorage jdbcStorage = new JDBCOperationStorage();
     private final String NAME_REGEX = "^[A-Z]{1}[a-z]{1,12}$";
     private final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}$";
 
@@ -93,20 +95,23 @@ public class ConsoleApplication {
 
 
                     case 2:
-                        write("1 - CheckAllHistory, 2 - RemoveAllHistory,3 - FindById");
+                        write("1 - CheckAllHistory, 2 - RemoveById,3 - FindById");
                         switch (readInt()) {
                             case 1:
-                                List<Operation> allByUser = calculatorService.findAllByUser(consoleSession.getCurrentUser());
-                                for (Operation operation1 : allByUser) {
-                                    write(operation1.toString());
-                                }
+                                List<Operation> findAll = jdbcStorage.findAll();
+                                System.out.println(findAll);
                                 continue;
                             case 2:
-                                calculatorService.removeAll(consoleSession.getCurrentUser());
+                                write("enter id");
+                                jdbcStorage.deleteById(readInt());
+                                write("operation delete!!!");
                                 continue;
                             case 3:
                                 write("enter id");
-                                calculatorService.findByIdOperation(readInt());
+                                Optional<Operation> byId = jdbcStorage.findById(readInt());
+                                if(byId.isPresent()){
+                                    System.out.println(byId.get());
+                                }
                                 continue;
                         }
                         continue;
